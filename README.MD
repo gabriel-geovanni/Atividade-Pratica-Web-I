@@ -29,7 +29,7 @@ Para clonar e rodar essa aplicação é necessário ter o git, docker, node v18.
 $ git clone https://github.com/gabriel-geovanni/Atividade-Pratica-Web-I.git
 
 # Go into the reposity
-$ cd homeCash
+$ cd atividade-pratica
 ```
 
 ```
@@ -39,7 +39,7 @@ $ sudo docker run --name pg -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -p 5
 
 ```
 # Go to docker terminal
-$ docker exec -t pg bash
+$ docker exec -it pg bash
 
 # Go to PostgreSQL container
 $ psql -U root
