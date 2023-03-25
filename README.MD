@@ -69,7 +69,7 @@ Run Web:
 ```
 
 # open web
-$ cd web1
+$ cd web
 
 # Install dependencies
 $ npm install or yarn
