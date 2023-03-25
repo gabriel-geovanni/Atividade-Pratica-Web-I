@@ -39,7 +39,7 @@ class DonationController {
 
   async store(request, response) {
     const {
-      pessoa_id, local_id,
+      pessoa_id, local_id, quantidade
     } = request.body;
 
     const data_doacao = new Date().toISOString();
@@ -57,7 +57,7 @@ class DonationController {
     }
 
     const donation = await DonationRepository.create({
-      pessoa_id, local_id, data_doacao,
+      pessoa_id, local_id, quantidade, data_doacao,
     });
 
     response.send(donation);

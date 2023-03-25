@@ -34,9 +34,9 @@ class LocalController {
 
   async store(request, response) {
     const {
-      nome, rua, numero, complemento, cidade_id,
+      nome, rua, numero, complemento, cep,
     } = request.body;
-
+    console.log('aqui', request.body)
     if (!nome) {
       return response.status(400).json({ error: 'Digite nome da unidade' });
     }
@@ -48,15 +48,12 @@ class LocalController {
     if (!numero) {
       return response.status(400).json({ error: 'Digite o numero da unidade' });
     }
-
-    if (!cidade_id) {
-      return response.status(400).json({ error: 'Selecione uma cidade de atendimento' });
-    }
-
+    console.log('aqui2')
     const adressExists = await LocalRepository.findByAdress(rua, numero);
     if (adressExists) {
       return response.status(400).json({ error: 'Já existe um posto de doação nesse endereço' });
     }
+    console.log('aqui3')
 
     const api = axios.create({
       httpsAgent: new https.Agent({
@@ -64,14 +61,14 @@ class LocalController {
       }),
     });
 
-    const { data } = await api.get(`https://servicodados.ibge.gov.br/api/v1/localidades/municipios/${cidade_id}`);
+    const { data } = await api.get(`https://viacep.com.br/ws/${cep}/json/`);
 
-    if (!data.nome) {
+    if (!data.localidade) {
       return response.status(400).json({ error: 'Cidade não encontrada' });
     }
 
-    const cidade = data.nome;
-    const estado = data.microrregiao.mesorregiao.UF.sigla;
+    const cidade = data.localidade;
+    const estado = data.uf;
 
     const local = await LocalRepository.create({
       nome, rua, numero, complemento, cidade, estado,

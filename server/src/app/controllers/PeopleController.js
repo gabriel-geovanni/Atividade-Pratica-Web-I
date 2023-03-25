@@ -47,9 +47,9 @@ class PeopleController {
 
   async store(request, response) {
     const {
-      nome, rua, numero, complemento, documento, cidade_id, tipo_id,
+      nome, rua, numero, complemento, documento, cep, tipo_id,
     } = request.body;
-
+    console.log('aqui', request.body)
     if (!nome) {
       return response.status(400).json({ error: 'Digite nome do doador' });
     }
@@ -64,10 +64,6 @@ class PeopleController {
 
     if (!documento) {
       return response.status(400).json({ error: 'Informe o numero do documento' });
-    }
-
-    if (!cidade_id) {
-      return response.status(400).json({ error: 'Selecione uma cidade de atendimento' });
     }
 
     if (!tipo_id) {
@@ -85,15 +81,15 @@ class PeopleController {
       }),
     });
 
-    const { data } = await api.get(`https://servicodados.ibge.gov.br/api/v1/localidades/municipios/${cidade_id}`);
-
-    if (!data.nome) {
+    const { data } = await api.get(`https://viacep.com.br/ws/${cep}/json/`);
+    console.log(data)
+    if (!data.localidade) {
       return response.status(400).json({ error: 'Cidade não encontrada' });
     }
 
-    const cidade = data.nome;
-    const estado = data.microrregiao.mesorregiao.UF.sigla;
-
+    const cidade = data.localidade;
+    const estado = data.uf;
+    console.log('aqui2', cidade, estado)
     const person = await PeopleRepository.create({
       nome,
       rua,

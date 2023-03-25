@@ -7,9 +7,9 @@ const client = new Client({
   password: 'root',
   database: 'blooddonationsystem',
 });
-client.connect();
 
+client.connect();
 exports.query = async (query, values) => {
-  const { rows } = await client.query(query, values);
-  return rows;
+    const { rows } = await client.query(query, values);
+    return rows;
 };

@@ -17,6 +17,10 @@ O projeto foi desenvolvido com as seguintes tecnologias:
 - Docker
 - PostgreSQL
 - Express
+- React
+- Vite
+- Axios
+- StyledComponents
 
 ---
 
@@ -57,5 +61,17 @@ $ cd server
 $ npm install or yarn
 
 # Start Server
+$ yarn start
+
+```
+Run Web:
+
+# open web
+$ cd web1
+
+# Install dependencies
+$ npm install or yarn
+
+# Start Web
 $ yarn dev
 

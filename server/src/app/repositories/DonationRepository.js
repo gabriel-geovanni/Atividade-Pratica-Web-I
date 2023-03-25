@@ -27,13 +27,13 @@ class DonationRepository {
   }
 
   async create({
-    pessoa_id, local_id, data_doacao,
+    pessoa_id, local_id, quantidade, data_doacao,
   }) {
     const [row] = await db.query(`
-    INSERT INTO doacoes (pessoa_id, local_id, data_doacao)
-    VALUES ($1, $2, $3)
+    INSERT INTO doacoes (pessoa_id, local_id,quantidade, data_doacao)
+    VALUES ($1, $2, $3, $4)
     RETURNING *
-    `, [pessoa_id, local_id, data_doacao]);
+    `, [pessoa_id, local_id, quantidade, data_doacao]);
 
     return row;
   }
